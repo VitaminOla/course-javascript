@@ -30,7 +30,8 @@
  */
 
 import './towns.html';
-
+import './functions';
+import { loadAndSortTowns } from './functions';
 const homeworkContainer = document.querySelector('#app');
 
 /*
@@ -40,9 +41,7 @@ const homeworkContainer = document.querySelector('#app');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-  return fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
-    .then((res) => res.json())
-    .then((towns) => towns.sort((a, b) => a.name.localeCompare(b.name)));
+  return loadAndSortTowns();
 }
 
 /*
