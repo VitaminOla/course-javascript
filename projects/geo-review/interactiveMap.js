@@ -43,4 +43,16 @@ export default class InteractiveMap {
     this.map.events.add('click', (e) => this.onClick(e.get('coords')));
     this.map.geoObjects.add(this.clusterer);
   }
+
+  openBalloon(coords, content) {
+    this.map.balloon.open(coords, content);
+  }
+
+  setBalloonContent(content) {
+    this.map.balloon.setData(content);
+  }
+
+  closeBalloon() {
+    this.map.balloon.close();
+  }
 }
