@@ -1,0 +1,94 @@
+<style>
+  .ymaps-2-1-79-balloon__layout {
+    width: 370px !important;
+
+    margin-right: 0;
+  }
+
+  html,
+  body,
+  #map {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .form {
+    width: 370px;
+    /* min-height: 350px; */
+    margin-right: 0;
+    margin-left: 7px;
+  }
+
+  .form .field {
+    width: 310px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .form .field input,
+  .form .field textarea {
+    width: 310px;
+    height: 38px;
+    box-sizing: border-box;
+    padding: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .form .field textarea {
+    height: 98px;
+    resize: none;
+    padding-top: 7px;
+  }
+
+  .form .form-error {
+    color: red;
+  }
+
+  .review-list {
+    max-width: 310px;
+    max-height: 100px;
+    overflow: scroll;
+    border-bottom: 1px solid #e7e7e7;
+  }
+
+  .review-item {
+    font-size: 16px;
+    margin-left: 7px;
+  }
+
+  .add-btn {
+    width: 107px;
+    height: 38px;
+    color: #ffffff;
+    background-color: #ff8663;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .add-btn:hover {
+    background-color: #f87453;
+  }
+</style>
+
+<div id="map"></div>
+<script type="template" id="addFormTemplate">
+  <div class="review-list"></div>
+  <div class="form" data-role="review-form">
+      <h3>Водгук:</h3>
+      <div class="field">
+          <input data-role="review-name" type="text" placeholder="Ваша імя" required="required">
+      </div>
+      <div class="field">
+          <input data-role="review-place" type="text" placeholder="Месца">
+      </div>
+      <div class="field">
+          <textarea data-role="review-text" placeholder="Пакіньце водгук" rows="5"></textarea>
+      </div>
+
+      <button class="add-btn" data-role="review-add">Дадаць</button>
+      <span class="form-error"></span>
+  </div>
+</script>
