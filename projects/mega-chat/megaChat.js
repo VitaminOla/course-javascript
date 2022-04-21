@@ -2,6 +2,7 @@ import LoginWindow from './ui/loginWindow';
 import MainWindow from './ui/mainWindow';
 import UserName from './ui/userName';
 import UserList from './ui/userList';
+import UserPhoto from './ui/userPhoto';
 import MessageList from './ui/messageList';
 import MessageSender from './ui/messageSender';
 import WSClient from './wsClient';
@@ -20,16 +21,31 @@ export default class MegaChat {
       ),
       mainWindow: new MainWindow(document.querySelector('#main')),
       userName: new UserName(document.querySelector('[data-role=user-name]')),
-
       userList: new UserList(document.querySelector('[data-role=user-list]')),
       messageList: new MessageList(document.querySelector('[data-role=messages-list]')),
       messageSender: new MessageSender(
         document.querySelector('[data-role=message-sender]'),
         this.onSend.bind(this)
       ),
+      userPhoto: new UserPhoto(
+        document.querySelector('[data-role=user-photo]'),
+        this.onUpload.bind(this)
+      ),
     };
 
     this.ui.loginWindow.show();
+  }
+
+  onUpload(data) {
+    this.ui.userPhoto.set(data);
+
+    fetch('/mega-chat/upload-photo', {
+      method: 'post',
+      body: JSON.stringify({
+        name: this.ui.userName.get(),
+        image: data,
+      }),
+    });
   }
 
   onSend(message) {
@@ -43,6 +59,7 @@ export default class MegaChat {
     this.ui.loginWindow.hide();
     this.ui.mainWindow.show();
     this.ui.userName.set(name);
+    this.ui.userPhoto.set(`/mega-chat/photos/${name}.png?t=${Date.now()}`);
   }
 
   onMessage({ type, from, data }) {
@@ -73,6 +90,16 @@ export default class MegaChat {
       document.querySelector('[data-role=members-amount]').textContent = amount;
     } else if (type === 'text-message') {
       this.ui.messageList.add(from, data.message);
+    } else if (type === 'photo-changed') {
+      const avatars = document.querySelectorAll(
+        `[data-role=user-avatar][data-user=${data.name}]`
+      );
+
+      for (const avatar of avatars) {
+        avatar.style.backgroundImage = `url(/mega-chat/photos/${
+          data.name
+        }.png?t=${Date.now()})`;
+      }
     }
   }
 }

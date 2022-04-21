@@ -14,23 +14,19 @@ export default class MessageList {
 
     item.classList.add('message-item');
     item.innerHTML = `
-    
     <div class="message-item-left">
-    
         <div
+        style="background-image: url(/mega-chat/photos/${from}.png?t=${Date.now()})" 
         class="message-item-photo" data-role="user-avatar" data-user=${sanitize(
           from
         )}></div>
     </div>
-    
     <div class="message-item-right">
-    <div class="message-item-header-name">${sanitize(from)}</div>
+      <div class="message-item-header-name">${sanitize(from)}</div>
       <div class="message-item-content">
-      <div class="message-item-text">${sanitize(text)}</div>
-      <div class="message-item-header-time">${time}</div>
-          
+        <div class="message-item-text">${sanitize(text)}</div>
+        <div class="message-item-header-time">${time}</div>    
       </div>
-      
     </div>
     `;
 
